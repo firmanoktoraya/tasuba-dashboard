@@ -663,17 +663,17 @@ function gsm(mi){return mi===0?['ADS','Godean']:mi<4?['ADS','Godean','Palagan','
 //  STORAGE LAYER — Google Sheets Cloud + LocalStorage Cache
 //  Ganti GAS_URL dengan URL dari Google Apps Script Anda
 // ══════════════════════════════════════════════════════
-const GAS_URL = 'YOUR_APPS_SCRIPT_URL_HERE'; // ← GANTI INI
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbypyxKgGKM0oBIh2Ur2FTXPLvAQeVSRlFeh3aRTZSdOEwbLDPXuyO-dBujug3QncxEA/exec'; // ← GANTI INI
 const USE_CLOUD = GAS_URL !== 'YOUR_APPS_SCRIPT_URL_HERE';
 const CACHE_KEY = 'tasuba_cache_2026';
 const CACHE_TTL = 5 * 60 * 1000; // 5 menit
 
 // ── Local cache helpers ──────────────────────────────
 function LC(){try{return JSON.parse(localStorage.getItem(CACHE_KEY)||'{}')}catch{return{}}}
-function SC(d){localStorage.setItem(CACHE_KEY,JSON.stringify(d))}
+function saveCache(d){localStorage.setItem(CACHE_KEY,JSON.stringify(d))}
 function cacheGet(k){const c=LC();const e=c[k];if(!e)return null;if(Date.now()-e.ts>CACHE_TTL)return null;return e.val}
-function cacheSet(k,val){const c=LC();c[k]={val,ts:Date.now()};SC(c)}
-function cacheDel(k){const c=LC();delete c[k];SC(c)}
+function cacheSet(k,val){const c=LC();c[k]={val,ts:Date.now()};saveCache(c)}
+function cacheDel(k){const c=LC();delete c[k];saveCache(c)}
 function cacheClear(){localStorage.removeItem(CACHE_KEY)}
 
 // ── Cloud API call ───────────────────────────────────
